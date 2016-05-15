@@ -1,0 +1,26 @@
+{
+  "name": "todo-electron",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./src/main.js",
+  "keywords": [
+    "electron"
+  ],
+  "bugs": "yvonnick.frin@zenika.com",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "gulp"
+  },
+  "dependencies": {
+    "less": "^2.7.1"
+  },
+  "devDependencies": {
+    "electron-connect": "^0.4.0",
+    "electron-prebuilt": "^1.0.2",
+    "gulp": "^3.9.1"
+  },
+  "author": "FRIN Yvonnick",
+  "repository": "http://nourl.fr",
+  "contributors": [],
+  "license": "ISC"
+}

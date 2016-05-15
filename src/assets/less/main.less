@@ -1,0 +1,73 @@
+@broken-white: #F5F5F5;
+@darker-broken-white: #ece5e5;
+
+@light-gray: #ddd;
+
+@orange: #f4ad2c;
+@light-orange: #f5bf5b;
+
+@padding: 10px 15px;
+
+@footer-height: 50px;
+@header-height: 100px;
+@nav-width: 40%;
+@content-width: 60%;
+
+@font-roboto: "Roboto", sans-serif;
+@font-roboto-condensed: "Roboto Condensed", sans-serif;
+
+* {
+  font-family: @font-roboto;
+  box-sizing: border-box;
+}
+
+h1,h2,h3,h4,h5,h6{
+  font-family: @font-roboto-condensed;
+}
+
+html{
+  height: 100vh;
+}
+
+body {
+  display:flex;
+  flex-direction: column;
+
+  margin: 0;
+  height: 100%;
+
+  background-color: @broken-white;
+  header {
+    flex: 0 0 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    padding: @padding;
+
+    background-color: @orange;
+    border-bottom: 5px solid @light-orange;
+    h1, p {
+      margin: 0;
+    }
+    p{
+      font-style: italic;
+    }
+  }
+  .container{
+    position: relative;
+    flex: 1 0 auto;
+  }
+  footer {
+    flex: 0 0 50px;
+    display: flex;
+
+    background-color: @orange;
+
+    padding: @padding;
+
+    p{
+      align-self: center;
+    }
+  }
+}
