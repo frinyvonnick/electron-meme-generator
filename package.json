@@ -1,5 +1,5 @@
 {
-  "name": "todo-electron",
+  "name": "meme-generator",
   "version": "1.0.0",
   "description": "",
   "main": "./src/main.js",
@@ -12,6 +12,7 @@
     "start": "gulp"
   },
   "dependencies": {
+    "electron-json-storage": "^2.0.0",
     "less": "^2.7.1"
   },
   "devDependencies": {
