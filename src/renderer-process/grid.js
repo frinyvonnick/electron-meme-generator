@@ -13,7 +13,7 @@ ipc.on('templates-sended', (e, images) => {
   `${prev}
   <div class="card template">
   <div class="img" style="background-image:url('${next.path}')"></div>
-  <h3><span>${next.title}</span></h3>
+  <h3 title="${next.title}"><span>${next.title}</span></h3>
   </div>`, '')
   document.getElementById('content').innerHTML += `<div class="card" id="new-template">
   <div class="img"></div>

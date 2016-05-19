@@ -67,6 +67,7 @@ body {
     padding-bottom: 1%;
     .card{
       flex:0 0 calc((100% - 5%)/4);
+      max-width: calc((100% - 5%)/4);
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -90,6 +91,10 @@ body {
         padding: 10px 15px;
         margin: 0;
         span{
+          max-width: 95%;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
           align-self: center;
         }
       }
