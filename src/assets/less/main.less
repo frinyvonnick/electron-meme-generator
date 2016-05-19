@@ -64,6 +64,7 @@ body {
     flex-wrap:wrap;
     align-items: flex-start;
     align-content: flex-start;
+    padding-bottom: 1%;
     .card{
       flex:0 0 calc((100% - 5%)/4);
       display: flex;
@@ -72,9 +73,11 @@ body {
       margin: 1% 0 0 1%;
       height: 200px;
       background-color: @white;
-      transition: all 250ms;
+      transition: all 500ms;
       .img{
         flex: 0 0 125px;
+        opacity:1;
+        transition: all 500ms;
         background-size: cover;
       }
       h3{
@@ -94,6 +97,19 @@ body {
         cursor: pointer;
         background-color: @orange;
         color:@white;
+        .img{
+          opacity:0.65;
+        }
+      }
+      &#new-template{
+        .img{
+          background-image: url('../img/plus.png');
+        }
+        &:hover{
+          .img{
+            background-image: url('../img/plus-hover.png');
+          }
+        }
       }
     }
   }
