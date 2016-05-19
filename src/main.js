@@ -19,7 +19,6 @@ const windowsSize = {
 let mainWindow
 
 const initialize = () => {
-
   loadScripts()
 
   function createWindow () {
@@ -65,7 +64,6 @@ const initialize = () => {
       createWindow()
     }
   })
-
 }
 
 // // Require each JS file in the main-process dir
