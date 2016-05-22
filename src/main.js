@@ -26,7 +26,7 @@ const initialize = () => {
     mainWindow = new BrowserWindow({width: windowsSize.width, height: windowsSize.height})
 
     // and load the index.html of the app.
-    mainWindow.loadURL('file://' + __dirname + '/index.html')
+    mainWindow.loadURL('file://' + __dirname + '/windows/index.html')
 
     // Open the DevTools.
     mainWindow.webContents.openDevTools()

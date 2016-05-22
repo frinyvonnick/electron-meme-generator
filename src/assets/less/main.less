@@ -4,6 +4,8 @@
 @white:#fff;
 
 @light-gray: #ddd;
+@antracite-black: #333;
+@light-antracite-black: #666;
 
 @orange: #f4ad2c;
 @light-orange: #f5bf5b;
@@ -115,6 +117,47 @@ body {
           .img{
             background-image: url('../img/plus-hover.png');
           }
+        }
+      }
+    }
+  }
+  &.edit-page{
+    flex-direction: row;
+    .editor{
+      flex:1 1 auto;
+      display: flex;
+      justify-content: center;
+      background-color: @orange;
+      img{
+        align-self: center;
+        max-width: 100%;
+        max-height: 100%;
+      }
+    }
+    .toolbar{
+      flex: 0 0 50px;
+      display: flex;
+      flex-direction: column;
+      background-color: @antracite-black;
+      button{
+        flex: 0 0 50px;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-color: transparent;
+        border: 0;
+        outline: 0;
+        &.previous{
+          background-image: url('../img/previous.png');
+        }
+        &.text{
+          background-image: url('../img/text.png');
+        }
+        &.save{
+          background-image: url('../img/save.png');
+        }
+        &:hover{
+          cursor: pointer;
+          background-color: @light-antracite-black;
         }
       }
     }

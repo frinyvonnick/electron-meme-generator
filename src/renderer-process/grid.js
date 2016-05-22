@@ -11,7 +11,7 @@ ipc.send('get-templates', {})
 ipc.on('templates-sended', (e, images) => {
   document.getElementById('content').innerHTML = images.reduce((prev, next, index, arr) =>
   `${prev}
-  <div class="card template">
+  <div class="card template" data-index="${index}">
   <div class="img" style="background-image:url('${next.path}')"></div>
   <h3 title="${next.title}"><span>${next.title}</span></h3>
   </div>`, '')
@@ -25,6 +25,9 @@ ipc.on('templates-sended', (e, images) => {
     element.addEventListener('contextmenu', e => {
       e.preventDefault()
       menu.popup(remote.getCurrentWindow())
+    })
+    element.addEventListener('click', e => {
+      ipc.send('set-selected-template', images[parseInt(element.getAttribute('data-index'), 10)])
     })
   }
   document.getElementById('new-template').addEventListener('click', () => ipc.send('open-file-dialog'))
