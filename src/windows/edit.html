@@ -20,9 +20,12 @@
     <button class="save" id="save"></button>
   </div>
   <script type="text/javascript" src="../../node_modules/less/dist/less.min.js"></script>
-  <script type="text/javascript" src="../renderer-process/edit.js"></script>
 
-  <!-- Livereload -->
-  <script type="text/javascript">require('electron-connect').client.create()</script>
+  <script type="text/javascript">
+    require('../renderer-process/edit.js');
+    // Livereload
+    require('../renderer-process/client.js');
+  </script>
+  <script type="text/javascript" src="../renderer-process/edit.js"></script>
 </body>
 </html>
