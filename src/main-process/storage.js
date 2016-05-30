@@ -2,102 +2,115 @@ const {app, ipcMain, dialog} = require('electron')
 const storage = require('electron-json-storage')
 const fs = require('fs')
 const path = require('path')
-const templatesPath = app.getPath('userData') + '/templates/'
+const _ = require('lodash')
+const memesPath = app.getPath('userData') + '/memes/'
 
 const defaultImages = [
   {
     name: 'baby.jpg',
     title: 'Victory Baby',
-    path: templatesPath + 'baby.jpg'
+    path: memesPath + 'baby.jpg'
   },
   {
     name: 'chapelier.jpg',
     title: 'Creepy Condescending Wonka',
-    path: templatesPath + 'chapelier.jpg'
+    path: memesPath + 'chapelier.jpg'
   },
   {
     name: 'futurama.jpg',
     title: 'Futurama Fry',
-    path: templatesPath + 'futurama.jpg'
+    path: memesPath + 'futurama.jpg'
   },
   {
     name: 'grandma.jpg',
     title: 'Grandma Finds The Internet',
-    path: templatesPath + 'grandma.jpg'
+    path: memesPath + 'grandma.jpg'
   },
   {
     name: 'startrek.png',
     title: 'Picard Wtf',
-    path: templatesPath + 'startrek.png'
+    path: memesPath + 'startrek.png'
   },
   {
     name: 'toystory.png',
     title: 'X, X Everywhere',
-    path: templatesPath + 'toystory.png'
+    path: memesPath + 'toystory.png'
   },
   {
     name: 'taken.jpg',
     title: 'Liam Neeson Taken',
-    path: templatesPath + 'taken.jpg'
+    path: memesPath + 'taken.jpg'
   }
 ]
 
-const initTemplatesStorage = () => {
-  fs.mkdir(templatesPath, () => defaultImages.forEach(copyTemplate))
-  storage.set('templates', defaultImages, (error) => {
+const initmemesStorage = () => {
+  fs.mkdir(memesPath, () => defaultImages.forEach(copyMeme))
+  storage.set('memes', defaultImages, (error) => {
     if (error) throw error
   })
 }
 
-const copyTemplate = (template) => {
-  fs.createReadStream(app.getAppPath() + '/src/assets/img/defaults/' + template.name).pipe(fs.createWriteStream(templatesPath + template.name))
+const copyMeme = (meme) => {
+  fs.createReadStream(app.getAppPath() + '/src/assets/img/defaults/' + meme.name).pipe(fs.createWriteStream(memesPath + meme.name))
 }
 
-const addTemplate = (file, cb) => {
-  const templateName = path.basename(file)
-  fs.createReadStream(file).pipe(fs.createWriteStream(templatesPath + templateName))
-  storage.get('templates', (error, data) => {
+const addMeme = (file, cb) => {
+  const memeName = path.basename(file)
+  fs.createReadStream(file).pipe(fs.createWriteStream(memesPath + memeName))
+  storage.get('memes', (error, data) => {
     if (error) throw error
 
-    if (data.find(template => template.name === templateName)) {
+    if (data.find(meme => meme.name === memeName)) {
       cb()
       return
     }
     data.push({
-      name: templateName,
-      title: templateName,
-      path: templatesPath + path.basename(file)
+      name: memeName,
+      title: memeName,
+      path: memesPath + path.basename(file)
     })
-    storage.set('templates', data, (error) => {
+    storage.set('memes', data, (error) => {
       if (error) throw error
       cb()
     })
   })
 }
 
-storage.get('templates', (error, data) => {
+storage.get('memes', (error, data) => {
   if (error) throw error
 
   if (Object.keys(data).length === 0 && data.constructor === Object) {
-    initTemplatesStorage()
+    initmemesStorage()
   }
 })
 
-ipcMain.on('get-templates', (e, arg) => {
-  storage.get('templates', (error, templates) => {
+ipcMain.on('get-memes', (e) => {
+  storage.get('memes', (error, memes) => {
     if (error) throw error
 
-    e.sender.send('templates-sended', templates)
+    e.sender.send('memes-sended', memes)
   })
 })
 
 ipcMain.on('open-file-dialog', (event) => {
   dialog.showOpenDialog({
     properties: ['openFile'],
-    filters: [{name: 'Images', extensions: ['jpg', 'png', 'gif']}]
+    filters: [{ name: 'Images', extensions: ['jpg', 'png', 'gif'] }]
   }, (files) => {
     if (files) {
-      addTemplate(files[0], () => event.sender.send('selected-files'))
+      addMeme(files[0], () => event.sender.send('selected-files'))
     }
+  })
+})
+
+ipcMain.on('delete-selected-meme', (e, selectedMeme) => {
+  storage.get('memes', (error, memes) => {
+    if (error) throw error
+
+    storage.set('memes', _.reject(memes, selectedMeme), (error) => {
+      if (error) throw error
+
+      e.sender.send('meme-deleted')
+    })
   })
 })
