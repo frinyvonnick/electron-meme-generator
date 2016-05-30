@@ -1,4 +1,5 @@
 const gulp = require('gulp')
+const less = require('gulp-less')
 // Instance of ProcessManager
 const processManager = require('electron-connect').server.create()
 
@@ -20,4 +21,12 @@ gulp.task('default', function () {
     './src/sections/**/*.html',
     './src/assets/**/*.{less,js}'
   ], processManager.reload)
+
+  gulp.watch([
+    './src/assets/**/*.less'
+  ], () => {
+    gulp.src('./src/assets/less/main.less')
+      .pipe(less())
+      .pipe(gulp.dest('./src/assets/css'))
+  })
 })
