@@ -8,20 +8,31 @@
   ],
   "bugs": "yvonnick.frin@zenika.com",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "gulp"
+    "start": "gulp",
+    "lint": "standard",
+    "test": "mocha src/tests && npm run lint"
   },
   "dependencies": {
     "electron-json-storage": "^2.0.0",
-    "less": "^2.7.1"
+    "less": "^2.7.1",
+    "lodash": "^4.13.1"
   },
   "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-as-promised": "^5.3.0",
     "electron-connect": "^0.4.0",
     "electron-prebuilt": "^1.0.2",
-    "gulp": "^3.9.1"
+    "gulp": "^3.9.1",
+    "spectron": "^3.1.2",
+    "standard": "^7.1.1"
   },
   "author": "FRIN Yvonnick",
   "repository": "http://nourl.fr",
   "contributors": [],
-  "license": "ISC"
+  "license": "ISC",
+  "standard": {
+    "env": {
+      "mocha": true
+    }
+  }
 }
