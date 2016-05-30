@@ -89,10 +89,10 @@ body .container .card:hover {
 body .container .card:hover .img {
   opacity: 0.65;
 }
-body .container .card#new-template .img {
+body .container .card#new-meme .img {
   background-image: url('../img/plus.png');
 }
-body .container .card#new-template:hover .img {
+body .container .card#new-meme:hover .img {
   background-image: url('../img/plus-hover.png');
 }
 body.edit-page {

@@ -32,10 +32,10 @@ const setTextareasPosition = () => {
 }
 
 // On envoit une demande de récupération d'informations sur le template selectionné
-ipcRenderer.send('get-selected-template', {})
+ipcRenderer.send('get-selected-meme', {})
 
 // On receptionne les informations du template selectionné
-ipcRenderer.on('selected-template-sended', (e, i) => {
+ipcRenderer.on('selected-meme-sended', (e, i) => {
   img.onload = () => {
     setTextareasPosition(img, textareas, editor)
     // On initialise le contenu des textareas
@@ -65,4 +65,4 @@ textareas.map((t) => {
 })
 
 // Action effectuée au click sur le bouton précédent
-document.getElementById('previous').click = () => remote.getCurrentWindow().close()
+document.getElementById('previous').onclick = () => remote.getCurrentWindow().close()
