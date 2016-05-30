@@ -1,4 +1,4 @@
-const {app, ipcMain, dialog} = require('electron')
+const {app} = require('electron')
 const storage = require('electron-json-storage')
 const fs = require('fs')
 const path = require('path')
@@ -76,41 +76,29 @@ const addMeme = (file, cb) => {
   })
 }
 
-storage.get('memes', (error, data) => {
-  if (error) throw error
-
-  if (Object.keys(data).length === 0 && data.constructor === Object) {
-    initmemesStorage()
-  }
-})
-
-ipcMain.on('get-memes', (e) => {
-  storage.get('memes', (error, memes) => {
-    if (error) throw error
-
-    e.sender.send('memes-sended', memes)
-  })
-})
-
-ipcMain.on('open-file-dialog', (event) => {
-  dialog.showOpenDialog({
-    properties: ['openFile'],
-    filters: [{ name: 'Images', extensions: ['jpg', 'png', 'gif'] }]
-  }, (files) => {
-    if (files) {
-      addMeme(files[0], () => event.sender.send('selected-files'))
-    }
-  })
-})
-
-ipcMain.on('delete-selected-meme', (e, selectedMeme) => {
+const deleteMeme = (selectedMeme, cb) => {
   storage.get('memes', (error, memes) => {
     if (error) throw error
 
     storage.set('memes', _.reject(memes, selectedMeme), (error) => {
       if (error) throw error
 
-      e.sender.send('meme-deleted')
+      cb()
     })
   })
-})
+}
+
+const getMemes = (cb) => {
+  storage.get('memes', (error, memes) => {
+    if (error) throw error
+
+    cb(memes)
+  })
+}
+
+exports.getMemes = getMemes
+exports.deleteMeme = deleteMeme
+exports.addMeme = addMeme
+exports.initmemesStorage = initmemesStorage
+exports.copyMeme = copyMeme
+exports.defaultImages = defaultImages

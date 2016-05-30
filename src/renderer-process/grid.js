@@ -18,12 +18,15 @@ ipc.on('memes-sended', (e, images) => {
   const elements = document.getElementsByClassName('meme')
   for (var i = 0; i < elements.length; i++) {
     const element = elements[i]
+
+    // Gère lemenu contextuel sur un meme
     element.addEventListener('contextmenu', e => {
       e.preventDefault()
       let menu = new Menu()
       menu.append(new MenuItem({label: 'Delete', click (item, browserWindow) { ipc.send('delete-selected-meme', images[parseInt(element.getAttribute('data-index'), 10)]) }}))
       menu.popup(remote.getCurrentWindow())
     })
+
     element.addEventListener('click', e => {
       ipc.send('set-selected-meme', images[parseInt(element.getAttribute('data-index'), 10)])
     })
