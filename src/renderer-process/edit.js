@@ -32,10 +32,10 @@ const setTextareasPosition = () => {
 }
 
 // On envoit une demande de récupération d'informations sur le template selectionné
-ipcRenderer.send('get-selected-meme', {})
+ipcRenderer.send('get-new-meme', {})
 
 // On receptionne les informations du template selectionné
-ipcRenderer.on('selected-meme-sended', (e, i) => {
+ipcRenderer.on('new-meme-sended', (e, i) => {
   img.onload = () => {
     setTextareasPosition(img, textareas, editor)
     // On initialise le contenu des textareas
@@ -44,7 +44,7 @@ ipcRenderer.on('selected-meme-sended', (e, i) => {
     })
   }
 
-  img.setAttribute('src', i.path)
+  img.setAttribute('src', i)
 })
 
 // Au resize de la fenêtre on repositionne les textareas
@@ -66,3 +66,11 @@ textareas.map((t) => {
 
 // Action effectuée au click sur le bouton précédent
 document.getElementById('previous').onclick = () => remote.getCurrentWindow().close()
+
+// Action effectuée au click sur le bouton save
+document.getElementById('save').onclick = () => ipcRenderer.send('save-meme', textareas.map((t) => t.text))
+
+// On ferme la fenêtre quand le meme est saved
+ipcRenderer.on('meme-saved', () => {
+  remote.getCurrentWindow().close()
+})
