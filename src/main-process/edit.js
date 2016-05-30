@@ -11,7 +11,6 @@ exports.newEditWindow = (i) => {
   editWindow = new BrowserWindow({ width: 1000, height: 800 })
   editWindow.on('closed', () => (editWindow = null))
   editWindow.loadURL(modalPath)
-  editWindow.webContents.openDevTools()
   editWindow.show()
   return editWindow
 }

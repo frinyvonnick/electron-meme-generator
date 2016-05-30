@@ -10,7 +10,6 @@ ipcMain.on('set-selected-meme', (e, i) => {
   detailWindow = new BrowserWindow({ width: 1000, height: 800 })
   detailWindow.on('closed', () => (detailWindow = null))
   detailWindow.loadURL(modalPath)
-  detailWindow.webContents.openDevTools()
   detailWindow.show()
 })
 
