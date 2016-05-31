@@ -8,3 +8,7 @@ exports.saveimage = (file, texts, cb) => {
   const stream = fs.createReadStream(file).pipe(fs.createWriteStream(path.join(memesPath, path.basename(file))))
   stream.on('finish', cb)
 }
+
+exports.getImageInfos = (path) => {
+  // TODO : Implements here
+}
