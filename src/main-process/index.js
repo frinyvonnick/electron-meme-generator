@@ -1,16 +1,11 @@
 const {ipcMain, dialog} = require('electron')
 const {
   getMemes,
-  deleteMeme,
-  initmemesStorage
+  deleteMeme
 } = require('../assets/storage')
 const {newEditWindow} = require('./edit')
+const fs = require('fs')
 
-getMemes(memes => {
-  if (Object.keys(memes).length === 0 && memes.constructor === Object) {
-    initmemesStorage()
-  }
-})
 
 ipcMain.on('get-memes', (e) => {
   getMemes(memes => {
@@ -29,6 +24,25 @@ ipcMain.on('open-file-dialog', (event) => {
     }
   })
 })
+
+const saveDialog = (event, meme, window) => {
+  const options = {
+    title: 'Save the meme',
+    defaultPath: process.env.HOME,
+    filters: [
+      { name: 'Images', extensions: ['jpg', 'png', 'gif'] }
+    ]
+  }
+  dialog.showSaveDialog(options, (filename) => {
+    if (!filename) return
+    const copyStream = fs.createReadStream(meme).pipe(fs.createWriteStream(filename))
+    copyStream.on('finish', () => event.sender.send('saved-file-' + window, filename))
+  })
+}
+
+ipcMain.on('save-from-grid', (event, meme) => saveDialog(event, meme, 'grid'))
+ipcMain.on('save-from-detail', (event, meme) => saveDialog(event, meme, 'detail'))
+
 
 ipcMain.on('delete-selected-meme', (e, selectedMeme) => {
   deleteMeme(selectedMeme, () => {

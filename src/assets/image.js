@@ -10,12 +10,13 @@ exports.saveimage = (file, texts, cb) => {
         image.print(font, 0, 0, texts[0])
         image.print(font, 0, image.bitmap.height - 32, texts[1])
       }
-      image.write(path.join(memesPath, path.basename(file)), () => {
-        cb()
+      const memePath = path.join(memesPath, Date.now() + '-' + path.basename(file))
+      image.write(memePath, () => {
+        cb(memePath)
       })
     })
   }).catch(err => {
-    cb(err)
+    cb(null, err)
   })
 }
 
