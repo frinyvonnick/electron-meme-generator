@@ -1,10 +1,10 @@
 const {ipcMain, dialog} = require('electron')
 const {
   getMemes,
-  addMeme,
   deleteMeme,
   initmemesStorage
 } = require('../assets/storage')
+const {newEditWindow} = require('./edit')
 
 getMemes(memes => {
   if (Object.keys(memes).length === 0 && memes.constructor === Object) {
@@ -13,7 +13,9 @@ getMemes(memes => {
 })
 
 ipcMain.on('get-memes', (e) => {
-  getMemes(memes => e.sender.send('memes-sended', memes))
+  getMemes(memes => {
+    e.sender.send('memes-sended', memes)
+  })
 })
 
 ipcMain.on('open-file-dialog', (event) => {
@@ -22,7 +24,8 @@ ipcMain.on('open-file-dialog', (event) => {
     filters: [{ name: 'Images', extensions: ['jpg', 'png', 'gif'] }]
   }, (files) => {
     if (files) {
-      addMeme(files[0], () => event.sender.send('selected-files'))
+      const editWindow = newEditWindow(files[0])
+      editWindow.on('close', () => event.sender.send('selected-files'))
     }
   })
 })

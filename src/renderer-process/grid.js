@@ -19,7 +19,7 @@ ipc.on('memes-sended', (e, images) => {
   for (var i = 0; i < elements.length; i++) {
     const element = elements[i]
 
-    // Gère lemenu contextuel sur un meme
+    // Gère le menu contextuel sur un meme
     element.addEventListener('contextmenu', e => {
       e.preventDefault()
       let menu = new Menu()
@@ -28,7 +28,7 @@ ipc.on('memes-sended', (e, images) => {
     })
 
     element.addEventListener('click', e => {
-      ipc.send('set-selected-meme', images[parseInt(element.getAttribute('data-index'), 10)])
+      ipc.send('set-selected-meme', images[parseInt(element.getAttribute('data-index'), 10)].path)
     })
   }
   document.getElementById('new-meme').addEventListener('click', () => ipc.send('open-file-dialog'))

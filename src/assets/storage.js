@@ -4,6 +4,7 @@ const fs = require('fs')
 const path = require('path')
 const _ = require('lodash')
 const memesPath = app.getPath('userData') + '/memes/'
+const imagemagick = require('./imagemagick')
 
 const defaultImages = [
   {
@@ -91,8 +92,21 @@ const deleteMeme = (selectedMeme, cb) => {
 const getMemes = (cb) => {
   storage.get('memes', (error, memes) => {
     if (error) throw error
-
     cb(memes)
+  })
+}
+
+const saveMeme = (newMeme, texts, cb) => {
+  storage.get('memes', (error, memes) => {
+    if (error) throw error
+
+    imagemagick.saveimage(newMeme, texts, (error) => {
+      if (error) throw error
+      addMeme(newMeme, error => {
+        if (error) throw error
+        cb()
+      })
+    })
   })
 }
 
@@ -102,3 +116,4 @@ exports.addMeme = addMeme
 exports.initmemesStorage = initmemesStorage
 exports.copyMeme = copyMeme
 exports.defaultImages = defaultImages
+exports.saveMeme = saveMeme
