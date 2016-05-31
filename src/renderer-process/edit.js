@@ -76,6 +76,5 @@ ipcRenderer.on('meme-saved', () => {
     body: 'Le meme a bien été sauvegardé'
   })
 
-
   remote.getCurrentWindow().close()
 })

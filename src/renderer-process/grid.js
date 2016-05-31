@@ -36,4 +36,10 @@ ipc.on('memes-sended', (e, images) => {
 
 ipc.on('selected-files', () => ipc.send('get-memes', {}))
 
-ipc.on('meme-deleted', () => ipc.send('get-memes', {}))
+ipc.on('meme-deleted', () => {
+  ipc.send('get-memes', {})
+
+  new Notification('Meme Generator', {
+    body: 'Le meme a bien été supprimé'
+  })
+})
