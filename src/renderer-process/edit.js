@@ -59,16 +59,22 @@ window.onload = () => {
   }, 50)
 }
 
-// On limite le nombre de ligne et de caractères dans les textareas
 textareas.map((t) => {
-  t.element.onkeyup = e => limitTextarea(e.srcElement)
+  // On limite le nombre de ligne et de caractères dans les textareas
+  t.element.onkeyup = e => {
+    limitTextarea(e.srcElement)
+    t.text = e.srcElement.value
+  }
 })
 
 // Action effectuée au click sur le bouton précédent
 document.getElementById('previous').onclick = () => remote.getCurrentWindow().close()
 
 // Action effectuée au click sur le bouton save
-document.getElementById('save').onclick = () => ipcRenderer.send('save-meme', textareas.map((t) => t.text))
+document.getElementById('save').onclick = () => {
+  console.log('Save click')
+  ipcRenderer.send('save-meme', textareas.map((t) => t.text))
+}
 
 // On ferme la fenêtre quand le meme est saved
 ipcRenderer.on('meme-saved', () => {

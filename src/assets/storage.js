@@ -4,7 +4,7 @@ const fs = require('fs')
 const path = require('path')
 const _ = require('lodash')
 const memesPath = app.getPath('userData') + '/memes/'
-const imagemagick = require('./imagemagick')
+const image = require('./image')
 
 const defaultImages = [
   {
@@ -57,7 +57,6 @@ const copyMeme = (meme) => {
 
 const addMeme = (file, cb) => {
   const memeName = path.basename(file)
-  fs.createReadStream(file).pipe(fs.createWriteStream(memesPath + memeName))
   storage.get('memes', (error, data) => {
     if (error) throw error
 
@@ -99,8 +98,7 @@ const getMemes = (cb) => {
 const saveMeme = (newMeme, texts, cb) => {
   storage.get('memes', (error, memes) => {
     if (error) throw error
-
-    imagemagick.saveimage(newMeme, texts, (error) => {
+    image.saveimage(newMeme, texts, (error) => {
       if (error) throw error
       addMeme(newMeme, error => {
         if (error) throw error

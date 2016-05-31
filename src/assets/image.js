@@ -1,0 +1,29 @@
+const {app} = require('electron')
+const path = require('path')
+const memesPath = app.getPath('userData') + '/memes/'
+const Jimp = require('jimp')
+
+exports.saveimage = (file, texts, cb) => {
+  Jimp.read(file).then(image => {
+    Jimp.loadFont(Jimp.FONT_SANS_32_BLACK).then(font => {
+      if (Array.isArray(texts) && texts.length === 2) {
+        image.print(font, 0, 0, texts[0])
+        image.print(font, 0, image.bitmap.height - 32, texts[1])
+      }
+      image.write(path.join(memesPath, path.basename(file)), () => {
+        cb()
+      })
+    })
+  }).catch(err => {
+    cb(err)
+  })
+}
+
+exports.getImageInfos = (file, cb) => {
+  Jimp.read(file).then(image => {
+    cb({
+      width: image.bitmap.width,
+      height: image.bitmap.height
+    })
+  })
+}
