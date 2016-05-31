@@ -21,3 +21,9 @@ npm install
 ```
 npm start
 ```
+
+## Package app
+
+```
+electron-packager . --all
+```
