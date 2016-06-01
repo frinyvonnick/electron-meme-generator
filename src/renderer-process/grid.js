@@ -16,6 +16,4 @@ ipc.on('memes-sended', (e, images) => {
   <div class="img"></div>
   <h3><span>New</span></h3>
   </div>`
-
-  document.getElementById('new-meme').addEventListener('click', () => ipc.send('open-file-dialog'))
 })
