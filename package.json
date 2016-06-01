@@ -15,6 +15,7 @@
     "package": "rm -Rf meme-generator-* && ./node_modules/electron-packager/cli.js . --platform=darwin,linux,win32 --arch=x64 --prune"
   },
   "dependencies": {
+    "electron-connect": "^0.4.2",
     "electron-json-storage": "^2.0.0",
     "jimp": "^0.2.24",
     "less": "^2.7.1",
