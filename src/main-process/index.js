@@ -1,51 +1,36 @@
-const {ipcMain, dialog} = require('electron')
-const {
-  getMemes,
-  deleteMeme
-} = require('../assets/storage')
-const {newEditWindow} = require('./edit')
-const fs = require('fs')
+const {ipcMain} = require('electron')
 
+const defaultMemes = [
+  {
+    title: 'Victory Baby',
+    file: 'baby.jpg'
+  },
+  {
+    title: 'Creepy Condescending Wonka',
+    file: 'chapelier.jpg'
+  },
+  {
+    title: 'Futurama Fry',
+    file: 'futurama.jpg'
+  },
+  {
+    title: 'Grandma Finds The Internet',
+    file: 'grandma.jpg'
+  },
+  {
+    title: 'Picard Wtf',
+    file: 'startrek.png'
+  },
+  {
+    title: 'X, X Everywhere',
+    file: 'toystory.png'
+  },
+  {
+    title: 'Liam Neeson Taken',
+    file: 'taken.jpg'
+  }
+]
 
 ipcMain.on('get-memes', (e) => {
-  getMemes(memes => {
-    e.sender.send('memes-sended', memes)
-  })
-})
-
-ipcMain.on('open-file-dialog', (event) => {
-  dialog.showOpenDialog({
-    properties: ['openFile'],
-    filters: [{ name: 'Images', extensions: ['jpg', 'png', 'gif'] }]
-  }, (files) => {
-    if (files) {
-      const editWindow = newEditWindow(files[0])
-      editWindow.on('close', () => event.sender.send('selected-files'))
-    }
-  })
-})
-
-const saveDialog = (event, meme, window) => {
-  const options = {
-    title: 'Save the meme',
-    defaultPath: process.env.HOME,
-    filters: [
-      { name: 'Images', extensions: ['jpg', 'png', 'gif'] }
-    ]
-  }
-  dialog.showSaveDialog(options, (filename) => {
-    if (!filename) return
-    const copyStream = fs.createReadStream(meme).pipe(fs.createWriteStream(filename))
-    copyStream.on('finish', () => event.sender.send('saved-file-' + window, filename))
-  })
-}
-
-ipcMain.on('save-from-grid', (event, meme) => saveDialog(event, meme, 'grid'))
-ipcMain.on('save-from-detail', (event, meme) => saveDialog(event, meme, 'detail'))
-
-
-ipcMain.on('delete-selected-meme', (e, selectedMeme) => {
-  deleteMeme(selectedMeme, () => {
-    e.sender.send('meme-deleted')
-  })
+  e.sender.send('memes-sended', defaultMemes)
 })
