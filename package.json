@@ -12,7 +12,7 @@
     "dev": "gulp --debug",
     "lint": "standard",
     "test": "mocha src/tests && npm run lint",
-    "package": "rm -Rf meme-generator-* && electron-packager . --platform=darwin,linux,win32 --arch=x64"
+    "package": "rm -Rf meme-generator-* && ./node_modules/electron-packager/cli.js . --platform=darwin,linux,win32 --arch=x64"
   },
   "dependencies": {
     "electron-json-storage": "^2.0.0",
@@ -24,11 +24,12 @@
     "chai": "^3.5.0",
     "chai-as-promised": "^5.3.0",
     "electron-connect": "^0.4.0",
+    "electron-packager": "^7.0.3",
     "electron-prebuilt": "^1.0.2",
     "gulp": "^3.9.1",
+    "gulp-less": "^3.1.0",
     "spectron": "^3.1.2",
-    "standard": "^7.1.1",
-    "gulp-less": "^3.1.0"
+    "standard": "^7.1.1"
   },
   "author": "FRIN Yvonnick",
   "repository": "http://nourl.fr",
