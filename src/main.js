@@ -6,6 +6,8 @@ const path = require('path')
 // Module to control application life.
 const app = electron.app
 
+const debug = /--debug/.test(process.argv[4])
+
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow
 
@@ -29,7 +31,9 @@ const initialize = () => {
     mainWindow.loadURL(path.join('file://', __dirname, '/windows/index.html'))
 
     // Open the DevTools.
-    mainWindow.webContents.openDevTools()
+    if (debug) {
+      mainWindow.webContents.openDevTools()
+    }
 
     // Emitted when the window is closed.
     mainWindow.on('closed', function () {
@@ -39,8 +43,10 @@ const initialize = () => {
       mainWindow = null
     })
 
-    // Livereload
-    client.create(mainWindow)
+    if (debug) {
+      // Livereload
+      client.create(mainWindow)
+    }
   }
 
   // This method will be called when Electron has finished
