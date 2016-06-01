@@ -30,11 +30,6 @@ const initialize = () => {
     // and load the index.html of the app.
     mainWindow.loadURL(path.join('file://', __dirname, '/windows/index.html'))
 
-    // Open the DevTools.
-    if (debug) {
-      mainWindow.webContents.openDevTools()
-    }
-
     // Emitted when the window is closed.
     mainWindow.on('closed', function () {
       // Dereference the window object, usually you would store windows
@@ -46,6 +41,8 @@ const initialize = () => {
     if (debug) {
       // Livereload
       client.create(mainWindow)
+      // Open the DevTools.
+      mainWindow.webContents.openDevTools()
     }
   }
 
