@@ -1,4 +1,9 @@
-const path = require('path')
+/*
+<div class="card meme">
+<div class="img"></div>
+<h3 title=""><span></span></h3>
+</div
+ */
 
 const defaultMemes = [
   {
@@ -30,11 +35,3 @@ const defaultMemes = [
     file: 'taken.jpg'
   }
 ]
-
-document.getElementById('content').innerHTML = defaultMemes.reduce((prev, next, index, arr) => {
-  return `${prev}
-  <div class="card meme" data-index="${index}">
-  <div class="img" style="background-image:url('${path.join('file://', __dirname, '..', 'assets', 'img', 'defaults', next.file)}')"></div>
-  <h3 title="${next.title}"><span>${next.title}</span></h3>
-  </div>`
-}, '')
