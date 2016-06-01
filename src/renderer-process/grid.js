@@ -23,6 +23,7 @@ ipc.on('memes-sended', (e, images) => {
     element.addEventListener('contextmenu', e => {
       e.preventDefault()
       let menu = new Menu()
+      menu.append(new MenuItem({label: 'Save as', click (item, browserWindow) { ipc.send('save-from-grid', images[parseInt(element.getAttribute('data-index'), 10)].path) }}))
       menu.append(new MenuItem({label: 'Delete', click (item, browserWindow) { ipc.send('delete-selected-meme', images[parseInt(element.getAttribute('data-index'), 10)]) }}))
       menu.popup(remote.getCurrentWindow())
     })
@@ -41,5 +42,12 @@ ipc.on('meme-deleted', () => {
 
   new Notification('Meme Generator', {
     body: 'Le meme a bien été supprimé'
+  })
+})
+
+ipc.on('saved-file-grid', function (event, path) {
+  if (!path) path = 'No path'
+  new Notification('Meme Generator', {
+    body: `Le meme a été sauvegardé à l'emplacement ${path}`
   })
 })
