@@ -36,7 +36,7 @@ const defaultMemes = [
 
 const initMemesStorage = (cb) => {
   fs.mkdir(memesPath, () => defaultMemes.forEach(copyMeme))
-  const memes = defaultMemes.map(meme => { return {title: meme.title, path: path.join(memesPath, meme.file)} })
+  const memes = defaultMemes.map((meme) => { return {title: meme.title, path: path.join(memesPath, meme.file)} })
   cb(memes)
 }
 

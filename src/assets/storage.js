@@ -39,9 +39,9 @@ const getMemes = (cb) => {
   })
 }
 
-getMemes(memes => {
+getMemes((memes) => {
   if (Object.keys(memes).length === 0 && memes.constructor === Object) {
-    initMemesStorage(memes => {
+    initMemesStorage((memes) => {
       storage.set('memes', memes, (error) => {
         if (error) throw error
       })
@@ -54,7 +54,7 @@ const saveMeme = (newMeme, texts, cb) => {
     if (error) throw error
     image.saveimage(newMeme, texts, (memePath, error) => {
       if (error) throw error
-      addMeme(memePath, error => {
+      addMeme(memePath, (error) => {
         if (error) throw error
         cb()
       })
