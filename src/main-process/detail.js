@@ -13,4 +13,4 @@ ipcMain.on('set-selected-meme', (e, i) => {
   detailWindow.show()
 })
 
-ipcMain.on('get-selected-meme', e => e.sender.send('selected-meme-sended', selectedMeme))
+ipcMain.on('get-selected-meme', (e) => e.sender.send('selected-meme-sended', selectedMeme))

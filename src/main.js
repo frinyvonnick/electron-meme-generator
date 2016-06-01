@@ -11,11 +11,6 @@ const debug = /--debug/.test(process.argv[4])
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow
 
-const windowsSize = {
-  width: 1000,
-  height: 800
-}
-
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
@@ -25,7 +20,7 @@ const initialize = () => {
 
   function createWindow () {
     // Create the browser window.
-    mainWindow = new BrowserWindow({width: windowsSize.width, height: windowsSize.height})
+    mainWindow = new BrowserWindow({width: 1000, height: 800})
 
     // and load the index.html of the app.
     mainWindow.loadURL(path.join('file://', __dirname, '/windows/index.html'))
