@@ -1,18 +1,19 @@
 const gulp = require('gulp')
 const less = require('gulp-less')
+const debug = /--debug/.test(process.argv[2])
 // Instance of ProcessManager
 const processManager = require('electron-connect').server.create()
 
 gulp.task('default', function () {
   // Start browser process
-  processManager.start()
+  processManager.start(process.argv)
   // Restart browser process
   gulp.watch([
     './src/main.js',
     './src/main-process/**/*.js'
   ], () => {
     processManager.broadcast('close')
-    processManager.restart()
+    processManager.restart(process.argv)
   })
   // Reload renderer process
   gulp.watch([

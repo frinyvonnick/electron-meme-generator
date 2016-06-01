@@ -9,8 +9,10 @@
   "bugs": "yvonnick.frin@zenika.com",
   "scripts": {
     "start": "gulp",
+    "dev": "gulp --debug",
     "lint": "standard",
-    "test": "mocha src/tests && npm run lint"
+    "test": "mocha src/tests && npm run lint",
+    "package": "rm -Rf meme-generator-* && electron-packager . --platform=darwin,linux,win32 --arch=x64"
   },
   "dependencies": {
     "electron-json-storage": "^2.0.0",
