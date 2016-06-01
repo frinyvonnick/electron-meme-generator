@@ -69,18 +69,3 @@ textareas.map((t) => {
 
 // Action effectuée au click sur le bouton précédent
 document.getElementById('previous').onclick = () => remote.getCurrentWindow().close()
-
-// Action effectuée au click sur le bouton save
-document.getElementById('save').onclick = () => {
-  console.log('Save click')
-  ipcRenderer.send('save-meme', textareas.map((t) => t.text))
-}
-
-// On ferme la fenêtre quand le meme est saved
-ipcRenderer.on('meme-saved', () => {
-  new Notification('Meme Generator', {
-    body: 'Le meme a bien été sauvegardé'
-  })
-
-  remote.getCurrentWindow().close()
-})

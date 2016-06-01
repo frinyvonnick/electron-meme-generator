@@ -1,7 +1,6 @@
 const storage = require('electron-json-storage')
 const path = require('path')
 const _ = require('lodash')
-const image = require('./image')
 const {initMemesStorage} = require('./init')
 
 const addMeme = (memePath, cb) => {
@@ -49,20 +48,6 @@ getMemes(memes => {
   }
 })
 
-const saveMeme = (newMeme, texts, cb) => {
-  storage.get('memes', (error, memes) => {
-    if (error) throw error
-    image.saveimage(newMeme, texts, (memePath, error) => {
-      if (error) throw error
-      addMeme(memePath, error => {
-        if (error) throw error
-        cb()
-      })
-    })
-  })
-}
-
 exports.getMemes = getMemes
 exports.deleteMeme = deleteMeme
 exports.addMeme = addMeme
-exports.saveMeme = saveMeme
