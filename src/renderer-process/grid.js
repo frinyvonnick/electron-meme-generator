@@ -6,7 +6,6 @@ ipc.send('get-memes', {})
 
 ipc.on('memes-sended', (e, images) => {
   document.getElementById('content').innerHTML = images.reduce((prev, next, index, arr) => {
-    console.log('path : ', next.path.split('\\').join('\\\\'))
     return `${prev}
     <div class="card meme" data-index="${index}">
     <div class="img" style="background-image:url('${next.path.split('\\').join('\\\\')}')"></div>

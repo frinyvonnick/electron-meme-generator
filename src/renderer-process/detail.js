@@ -17,7 +17,6 @@ ipcRenderer.on('selected-meme-sended', (e, i) => {
 // Gère le menu contextuel sur un meme
 img.addEventListener('contextmenu', e => {
   e.preventDefault()
-  console.log('blah')
   menu.popup(remote.getCurrentWindow())
 })
 
