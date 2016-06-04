@@ -5,7 +5,7 @@ const Jimp = require('jimp')
 
 exports.saveimage = (file, texts, cb) => {
   Jimp.read(file).then((image) => {
-    Jimp.loadFont(Jimp.FONT_SANS_32_BLACK).then((font) => {
+    Jimp.loadFont(Jimp.FONT_SANS_32_WHITE).then((font) => {
       if (Array.isArray(texts) && texts.length === 2) {
         image.print(font, 0, 0, texts[0])
         image.print(font, 0, image.bitmap.height - 32, texts[1])

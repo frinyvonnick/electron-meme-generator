@@ -1,21 +1,22 @@
 /**
-* Positionne un textarea relativement à l'image en cours d'édition
-* @param  {[type]}  el             [description]
-* @param  {Boolean} isTop          [description]
-* @param  {[type]}  rect           [description]
-* @param  {[type]}  containerWidth [description]
-* @return {[type]}                 [description]
-*/
-exports.setTextareaPosition = (el, isTop, rect, containerWidth) => {
-  el.style.height = (rect.height / 4) + 'px'
-  el.getElementsByTagName('textarea')[0].style.fontSize = ((rect.height / 4) / 3) + 'px'
+ * Positionne un textarea relativement à l'image en cours d'édition
+ * @param  {[type]}  el    [description]
+ * @param  {Boolean} isTop [description]
+ * @param  {[type]}  rect  [description]
+ * @return {[type]}        [description]
+ */
+exports.setTextareaPosition = (el, isTop, rect, fontSize) => {
+  const textarea = el.getElementsByTagName('textarea')[0]
+  el.style.height = parseInt((fontSize * 3), 10) + 'px'
+  textarea.style.fontSize = fontSize + 'px'
+  textarea.style.lineHeight = fontSize * 1.5 + 'px'
   if (isTop) {
-    el.style.top = rect.top + 'px'
+    el.style.top = parseInt(rect.top, 10) + 'px'
   } else {
-    el.style.top = `${rect.bottom - el.getBoundingClientRect().height}px`
+    el.style.top = `${parseInt(rect.bottom - el.getBoundingClientRect().height, 10)}px`
   }
-  el.style.left = `${rect.left}px`
-  el.style.right = `${containerWidth - (rect.left + rect.width)}px`
+  el.style.left = `${parseInt(rect.left, 10)}px`
+  el.style.right = '0'
 }
 
 /**

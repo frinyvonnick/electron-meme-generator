@@ -1,5 +1,6 @@
 const {ipcRenderer, remote} = require('electron')
 const {setTextareaPosition, limitTextarea} = require('../assets/textareas')
+const {computeCoef, computeHeight, computeFont} = require('../assets/compute')
 
 // Tableau contenant les informations relatives aux deux textareas
 const textareas = [
@@ -17,17 +18,16 @@ const textareas = [
 
 // Le conteneur parent de l'image et des textareas
 const editor = document.getElementsByClassName('editor')[0]
+const wrapper = document.getElementById('wrapper')
 const img = editor.getElementsByTagName('img')[0]
 
 /**
 * Positionne l'ensemble des textareas
 * @return {[type]} [description]
 */
-const setTextareasPosition = () => {
-  const containerWidth = editor.getBoundingClientRect().width
-  const rect = img.getBoundingClientRect()
+const setTextareasPosition = (wrapper, textareas, fontSize) => {
   textareas.map((t) => {
-    setTextareaPosition(t.element, t.isTop, rect, containerWidth)
+    setTextareaPosition(t.element, t.isTop, wrapper, fontSize)
   })
 }
 
@@ -36,8 +36,22 @@ ipcRenderer.send('get-new-meme', {})
 
 // On receptionne les informations du template selectionné
 ipcRenderer.on('new-meme-sended', (e, i) => {
+  // Au chargement de l'image on effectue son redimenssionnement et son
+  // positionement puis on dispose les textareas
   img.onload = () => {
-    setTextareasPosition(img, textareas, editor)
+    let wrapperRect = wrapper.getBoundingClientRect()
+    const fontSize = computeFont(1024, wrapperRect.width)
+
+    // On va cropper l'image pour qu'elle rentre dans le format d'image choisi
+    // On calcule la hauteur du wrapper par rapport à sa largeur
+    const wrapperHeight = parseInt(computeHeight(wrapperRect.width, computeCoef(16, 9)), 10)
+    wrapper.style.height = wrapperHeight + 'px'
+    wrapperRect = wrapper.getBoundingClientRect()
+    // On centre l'image verticalement dans le wrapper
+    img.style.top = parseInt((wrapperRect.height - img.getBoundingClientRect().height) / 2, 10) + 'px'
+
+    // On positionne les textareas
+    setTextareasPosition(wrapperRect, textareas, fontSize)
     // On initialise le contenu des textareas
     textareas.map((t, index) => {
       t.element.getElementsByTagName('textarea')[0].value = t.text
@@ -49,7 +63,7 @@ ipcRenderer.on('new-meme-sended', (e, i) => {
 
 // Au resize de la fenêtre on repositionne les textareas
 window.onresize = () => {
-  setTextareasPosition(img, textareas, editor)
+  setTextareasPosition(wrapper, textareas, editor)
 }
 
 window.onload = () => {
@@ -72,7 +86,6 @@ document.getElementById('previous').onclick = () => remote.getCurrentWindow().cl
 
 // Action effectuée au click sur le bouton save
 document.getElementById('save').onclick = () => {
-  console.log('Save click')
   ipcRenderer.send('save-meme', textareas.map((t) => t.text))
 }
 

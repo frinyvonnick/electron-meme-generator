@@ -121,21 +121,28 @@ body {
       }
     }
   }
+  &.details-page{
+    img{
+      max-width: 100%;
+      align-self: center;
+    }
+  }
   &.edit-page{
-    flex-direction: row;
     .editor{
-      flex:1 1 auto;
-      display: flex;
-      justify-content: center;
-      background-color: @orange;
-      position: relative;
-      img{
+      #wrapper{
+        flex: 0 0 100%;
         align-self: center;
-        max-width: 100%;
-        max-height: 100%;
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+        img{
+          position: absolute;
+          max-width: 100%;
+        }
       }
       .top, .bottom{
         position: absolute;
+        z-index: 2;
       }
       textarea{
         width: 100%;
@@ -146,14 +153,24 @@ body {
         outline: 0;
         border: 0;
         overflow: hidden;
-        text-shadow: 2px 0 0 @white, -2px 0 0 @white, 0 2px 0 @white, 0 -2px 0 @white, 1px 1px @white, -1px -1px 0 @white, 1px -1px 0 @white, -1px 1px 0 @white;
+        color: @white;
       }
+    }
+  }
+  &.edit-page, &.details-page{
+    flex-direction: row;
+    .editor{
+      flex:1 1 auto;
+      display: flex;
+      justify-content: center;
+      background-color: @orange;
+      position: relative;
     }
     .toolbar{
       flex: 0 0 50px;
       display: flex;
       flex-direction: column;
-      background-color: @antracite-black; 
+      background-color: @antracite-black;
       button{
         flex: 0 0 50px;
         background-position: center;
