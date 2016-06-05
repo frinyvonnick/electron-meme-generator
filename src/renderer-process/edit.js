@@ -86,12 +86,15 @@ document.getElementById('previous').onclick = () => remote.getCurrentWindow().cl
 
 // Action effectuée au click sur le bouton save
 document.getElementById('save').onclick = () => {
-  ipcRenderer.send('save-meme', textareas.map((t) => {
-    return {
-      isTop: t.isTop,
-      text: t.text
-    }
-  }))
+  ipcRenderer.send('save-meme', {
+    title: document.getElementById('title').value,
+    texts: textareas.map((t) => {
+      return {
+        isTop: t.isTop,
+        text: t.text
+      }
+    })
+  })
 }
 
 // On ferme la fenêtre quand le meme est saved

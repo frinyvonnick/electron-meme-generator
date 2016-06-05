@@ -4,13 +4,13 @@ const _ = require('lodash')
 const image = require('./image')
 const {initMemesStorage} = require('./init')
 
-const addMeme = (memePath, cb) => {
+const addMeme = (title, memePath, cb) => {
   const memeName = path.basename(memePath)
   storage.get('memes', (error, data) => {
     if (error) throw error
 
     data.push({
-      title: memeName,
+      title: (title !== '') ? title : memeName,
       path: memePath
     })
     storage.set('memes', data, (error) => {
@@ -49,12 +49,12 @@ getMemes((memes) => {
   }
 })
 
-const saveMeme = (newMeme, texts, cb) => {
+const saveMeme = (newMeme, title, texts, cb) => {
   storage.get('memes', (error, memes) => {
     if (error) throw error
     image.saveimage(newMeme, texts, (memePath, error) => {
       if (error) throw error
-      addMeme(memePath, (error) => {
+      addMeme(title, memePath, (error) => {
         if (error) throw error
         cb()
       })
