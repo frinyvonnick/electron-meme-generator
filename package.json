@@ -13,7 +13,7 @@
     "lint": "standard",
     "less": "gulp less",
     "test": "mocha src/tests && npm run lint",
-    "package": "rm -Rf meme-generator-* && ./node_modules/electron-packager/cli.js . --platform=darwin,linux,win32 --arch=x64 --prune"
+    "package": "rm -Rf meme-generator-* && ./node_modules/electron-packager/cli.js . --platform=win32 --arch=x64 --prune"
   },
   "dependencies": {
     "electron-connect": "^0.4.2",
