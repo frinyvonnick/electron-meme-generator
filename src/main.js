@@ -41,8 +41,6 @@ const initialize = () => {
     if (debug) {
       // Livereload
       client.create(mainWindow)
-      // Open the DevTools.
-      mainWindow.webContents.openDevTools()
     }
   }
 
