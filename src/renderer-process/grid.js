@@ -1,9 +1,4 @@
-/*
-<div class="card meme">
-<div class="img"></div>
-<h3 title=""><span></span></h3>
-</div>
- */
+const path = require('path')
 
 const defaultMemes = [
   {
