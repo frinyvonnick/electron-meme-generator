@@ -1,12 +1,8 @@
 {
   "name": "meme-generator",
-  "version": "1.0.0",
-  "description": "",
+  "version": "1.1.0",
+  "description": "A simple meme generator app make with electron framework.",
   "main": "./src/main.js",
-  "keywords": [
-    "electron"
-  ],
-  "bugs": "yvonnick.frin@zenika.com",
   "scripts": {
     "start": "gulp",
     "dev": "gulp --debug",
@@ -15,28 +11,38 @@
     "test": "mocha src/tests && npm run lint",
     "package": "rm -Rf meme-generator-* && ./node_modules/electron-packager/cli.js . --platform=win32 --arch=x64 --prune"
   },
+  "repository": {
+      "type": "git",
+      "url": "git+https://github.com/frinyvonnick/electron-meme-generator.git"
+  },
+  "keywords": [
+    "Electron",
+    "meme"
+  ],
+  "author": "FRIN Yvonnick <yvonnick.frin@zenika.com>",
+  "contributors": ["Eric Briand <eric.briand@zenika.com>"],
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/frinyvonnick/electron-meme-generator/issues"
+  },
   "dependencies": {
-    "electron-connect": "^0.4.2",
+    "electron-connect": "^0.4.5",
     "electron-json-storage": "^2.0.0",
-    "jimp": "^0.2.24",
+    "jimp": "^0.2.27",
     "less": "^2.7.1",
-    "lodash": "^4.13.1"
+    "lodash": "^4.15.0"
   },
   "devDependencies": {
     "chai": "^3.5.0",
     "chai-as-promised": "^5.3.0",
-    "devtron": "^1.2.0",
-    "electron-packager": "^7.0.3",
-    "electron-prebuilt": "^1.2.0",
+    "devtron": "^1.3.0",
+    "electron-packager": "^7.7.0",
+    "electron": "^1.3.4",
     "gulp": "^3.9.1",
     "gulp-less": "^3.1.0",
-    "spectron": "^3.2.0",
-    "standard": "^7.1.1"
+    "spectron": "^3.3.0",
+    "standard": "^8.0.0"
   },
-  "author": "FRIN Yvonnick",
-  "repository": "http://nourl.fr",
-  "contributors": [],
-  "license": "ISC",
   "standard": {
     "env": {
       "mocha": true
