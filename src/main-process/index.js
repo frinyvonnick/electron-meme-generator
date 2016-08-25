@@ -6,7 +6,6 @@ const {
 const {newEditWindow} = require('./edit')
 const fs = require('fs')
 
-
 ipcMain.on('get-memes', (e) => {
   getMemes((memes) => {
     e.sender.send('memes-sended', memes)
@@ -42,7 +41,6 @@ const saveDialog = (event, meme, window) => {
 
 ipcMain.on('save-from-grid', (event, meme) => saveDialog(event, meme, 'grid'))
 ipcMain.on('save-from-detail', (event, meme) => saveDialog(event, meme, 'detail'))
-
 
 ipcMain.on('delete-selected-meme', (e, selectedMeme) => {
   deleteMeme(selectedMeme, () => {

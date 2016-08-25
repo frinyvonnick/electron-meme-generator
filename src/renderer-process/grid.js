@@ -42,14 +42,16 @@ ipc.on('selected-files', () => ipc.send('get-memes', {}))
 ipc.on('meme-deleted', () => {
   ipc.send('get-memes', {})
 
-  new Notification('Meme Generator', {
+  const notification = new Notification('Meme Generator', {
     body: 'Le meme a bien été supprimé'
   })
+  notification()
 })
 
 ipc.on('saved-file-grid', function (event, path) {
   if (!path) path = 'No path'
-  new Notification('Meme Generator', {
+  const notification = new Notification('Meme Generator', {
     body: `Le meme a été sauvegardé à l'emplacement ${path}`
   })
+  notification()
 })

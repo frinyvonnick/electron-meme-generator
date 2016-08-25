@@ -25,7 +25,8 @@ document.getElementById('previous').onclick = () => remote.getCurrentWindow().cl
 
 ipcRenderer.on('saved-file-detail', function (event, path) {
   if (!path) path = 'No path'
-  new Notification('Meme Generator', {
+  const notification = new Notification('Meme Generator', {
     body: `Le meme a été sauvegardé à l'emplacement ${path}`
   })
+  notification()
 })
