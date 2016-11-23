@@ -1,4 +1,4 @@
-Slides web2day 2016 : https://raw.githubusercontent.com/frinyvonnick/electron-meme-generator/master/slides/electron-web2day-2016.pdf
+Slides Nightclazz Zenika Lille 2016 : https://github.com/frinyvonnick/electron-meme-generator/raw/master/slides/Electron%20NightClazz%20Zenika%20Lille%202016.pdf
 
 
 # electron-meme-generator
